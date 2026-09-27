@@ -1,0 +1,49 @@
+/* ============================================================
+   BASE.CSS — resets & foundational element rules
+   ============================================================ */
+
+/* A6 - border-box everywhere. (Also re-declared at the very top
+   of style.css, since the brief asks for it there specifically —
+   repeating box-sizing:border-box is harmless, it just wins twice.) */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px; /* baseline: 1rem = 16px for every rem value below */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, "Segoe UI", sans-serif; /* A5 - chosen font stack */
+    line-height: 1.5; /* A5 - required body line-height */
+}
+
+/* A9 - images always scale with their container and never distort */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    font: inherit;
+}
+
+a {
+    text-underline-offset: 3px;
+}
+
+/* Used on the hamburger button's text label: visually hidden but
+   still announced by screen readers (pairs with A9's display:none
+   usage, which hides/reveals the full nav-links list instead). */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IIIT Event Board</title>
+
+    <link rel="icon" href="fevicon.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme-dark.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="brand">
+        <img src="fevicon.jpg" alt="IIIT Event Board logo">
+        <h1>IIIT Event Board</h1>
+    </div>
+
+    <p>Stay updated with upcoming events at IIIT.</p>
+
+</header>
+
+<!-- B2 - nav is its own Grid region, separate from the header -->
+<nav class="site-nav" aria-label="Main navigation">
+
+    <!-- B6 - hamburger markup; the toggle itself is one line of JS,
+         the look and the responsive reveal are all CSS (see style.css) -->
+    <button type="button"
+        class="nav-toggle"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        onclick="document.getElementById('primary-nav').classList.toggle('open');
+                 this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');">
+        <span aria-hidden="true">&#9776;</span>
+        <span class="sr-only">Toggle menu</span>
+    </button>
+
+    <div class="nav-links" id="primary-nav">
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+</nav>
+
+<main id="main-content" class="main-content">
+
+    <section class="events">
+
+        <h2>Upcoming Events</h2>
+
+        <article class="event-card">
+
+            <h3>Web Development Workshop</h3>
+
+            <figure>
+
+                <img src="fevicon.jpg"
+                     alt="IIIT Event Board event logo"
+                     width="120"
+                     height="120">
+
+                <figcaption>
+                    Learn modern web development through practical activities.
+                </figcaption>
+
+            </figure>
+
+            <p>Date: <time datetime="2026-09-15">15 September 2026</time></p>
+
+            <p>
+                Learn
+                <abbr title="HyperText Markup Language">HTML</abbr>
+                and CSS through practical activities.
+            </p>
+
+            <p><mark>Registration open</mark></p>
+
+            <button type="button"
+                onclick="document.getElementById('register-dialog').showModal()">
+                Register
+            </button>
+
+        </article>
+
+        <article class="event-card">
+
+            <h3>Coding Competition</h3>
+
+            <p>Date: <time datetime="2026-09-25">25 September 2026</time></p>
+
+            <p>Solve programming problems using <code>C</code>.</p>
+
+            <p>Press <kbd>Enter</kbd> to select your answer.</p>
+
+            <button type="button"
+                onclick="document.getElementById('register-dialog').showModal()">
+                Register
+            </button>
+
+        </article>
+
+    </section>
+
+    <aside class="info">
+
+        <h2>Important Information</h2>
+
+        <p>
+            Bring your student ID for entry to the events.
+        </p>
+
+    </aside>
+
+    <section class="schedule">
+
+        <h2>Event Schedule</h2>
+
+        <p>Check the schedule below for upcoming events.</p>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Web Development Workshop</td>
+                    <td>15 September 2026</td>
+                    <td>12:00 PM</td>
+                </tr>
+
+                <tr>
+                    <td>Coding Competition</td>
+                    <td>25 September 2026</td>
+                    <td>11:00 AM</td>
+                </tr>
+
+                <tr>
+                    <td>Orientation Day</td>
+                    <td>24 August 2026</td>
+                    <td>12:00 PM</td>
+                </tr>
+
+                <tr>
+                    <td>Freshers Party</td>
+                    <td>5 September 2026</td>
+                    <td>11:00 AM</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <section class="faq">
+
+        <h2>Frequently Asked Questions</h2>
+
+        <details>
+
+            <summary>Who can attend the events?</summary>
+
+            <p>
+                IIIT students can attend the events.
+            </p>
+
+        </details>
+
+        <details>
+
+            <summary>Where can I get event updates?</summary>
+
+            <p>
+                Check this event board regularly for updates.
+            </p>
+
+        </details>
+
+    </section>
+
+    <section class="registration">
+
+        <h2>Registration Form</h2>
+
+        <form>
+
+            <label for="email">Email:</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="event-date">Event Date:</label>
+
+            <input
+                type="date"
+                id="event-date"
+                required
+            >
+
+            <button type="submit">Submit</button>
+
+        </form>
+
+    </section>
+
+    <section class="contact-info">
+
+        <h2>Contact</h2>
+
+        <address>
+            IIIT Event Team<br>
+            Gandhinagar, Gujarat<br>
+            Email: events@example.com
+        </address>
+
+        <!-- A4 - external HTTPS link -->
+        <p>
+            Visit
+            <a href="https://iiitvadodara.ac.in">
+                IIIT Vadodara
+            </a>
+            for more information.
+        </p>
+
+    </section>
+
+    <p class="guidelines-note">
+        Event information follows the IIIT Student Event Guidelines.
+    </p>
+
+</main>
+
+<dialog id="register-dialog">
+
+    <h2>Registration</h2>
+
+    <p>
+        Registration option selected successfully.
+    </p>
+
+    <button type="button"
+        onclick="document.getElementById('register-dialog').close()">
+        Close
+    </button>
+
+</dialog>
+
+<footer class="site-footer">
+
+    <p>&copy; 2026 IIIT Event Board</p>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="contact.html">Contact</a>
+
+        <a href="#main-content">Back to content</a>
+
+    </nav>
+
+</footer>
+
+</body>
+</html>

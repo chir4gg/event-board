@@ -1,0 +1,506 @@
+/* ============================================================
+   STYLE.CSS — Lab 5 design system, box model, grid & responsive
+   ============================================================ */
+
+/* A6 - box-sizing:border-box at the very top of style.css, as asked */
+* {
+    box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------
+   A2/A3 - DESIGN-SYSTEM PALETTE
+   Named custom properties instead of raw hex scattered through
+   the file. One value each in hex / rgb() / hsl(), plus one
+   semi-transparent colour for the header overlay.
+   ------------------------------------------------------------ */
+:root {
+    --brand:  #183b56;                    /* hex  - A3 */
+    --accent: #2878a7;                    /* hex  - A3 */
+    --ink:    #1f2937;                    /* hex  - A3 */
+    --paper:  #f4f7f9;                    /* hex  - A3 */
+    --card:   rgba(255, 255, 255, 0.86);  /* rgb() + alpha - A3 */
+    --border: #ccc;
+
+    --overlay: rgb(24 59 86 / 45%);       /* rgb() semi-transparent - A3 */
+    --accent-hover: hsl(205, 70%, 34%);   /* hsl() - A3 */
+
+    /* A5 - a small type scale, defined once and reused everywhere */
+    --fs-h1: clamp(1.5rem, 4vw, 3rem);    /* A4 - fluid clamp() heading */
+    --fs-h2: 1.5rem;
+    --fs-h3: 1.25rem;
+    --fs-body: 1rem;
+    --fs-small: 0.875rem;
+}
+
+/* ------------------------------------------------------------
+   PAGE-LEVEL GRID  (B2)
+   header / nav / main / footer as named Grid areas.
+   ------------------------------------------------------------ */
+body {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+        "header"
+        "nav"
+        "main"
+        "footer";
+    min-height: 100vh;
+    color: var(--ink);
+    background: var(--paper) url("background.jpg") center/cover no-repeat fixed;
+}
+
+.site-header { grid-area: header; }
+.site-nav    { grid-area: nav; }
+.main-content{ grid-area: main; }
+.site-footer { grid-area: footer; }
+
+/* B4 - colour is inherited from the parent */
+.main-content {
+    color: inherit;
+}
+
+/* B4 - initial resets text-align to its initial value */
+.registration {
+    text-align: initial;
+}
+
+/* ------------------------------------------------------------
+   MAIN-CONTENT GRID  (B2/B3/B4/B5)
+   Mobile-first: a single stacked column by default. A second,
+   nested Grid turns the sidebar into a real two-column layout
+   once there's enough room (see the min-width:64rem query below).
+   ------------------------------------------------------------ */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "events"
+        "info"
+        "schedule"
+        "faq"
+        "registration"
+        "contact";
+    gap: 1.5rem;                                  /* B4 - gap */
+    width: min(90%, 60rem);                       /* A4 - % width, capped */
+    margin: 1.25rem auto;                         /* A7 - centre the container */
+    padding: calc(1rem + 1vw) 1rem;               /* A4 - calc() */
+}
+
+.events        { grid-area: events; }
+.info          { grid-area: info; }
+.schedule      { grid-area: schedule; }
+.faq           { grid-area: faq; }
+.registration  { grid-area: registration; }
+.contact-info  { grid-area: contact; }
+
+/* the closing note isn't a named region: let it span the full width */
+.guidelines-note {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 64rem) {
+    /* B5 - second mobile-first breakpoint: sidebar + main.
+       "info" (the aside) spans two rows next to events+schedule. */
+    .main-content {
+        grid-template-columns: 3fr 1fr;
+        grid-template-areas:
+            "events       info"
+            "schedule     info"
+            "faq          faq"
+            "registration registration"
+            "contact      contact";
+    }
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVE EVENT CARD GRID  (B3/B4)
+   Reflows from many columns to one with NO media query at all —
+   auto-fit collapses empty tracks and minmax() sets the floor.
+   ------------------------------------------------------------ */
+.events {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.5rem;
+}
+
+.events h2 {
+    grid-column: 1 / -1; /* heading runs across every card column */
+}
+
+/* ------------------------------------------------------------
+   HEADER  (A4/A5/A7/A9)
+   ------------------------------------------------------------ */
+.site-header {
+    position: relative;
+    overflow: hidden;
+    padding: 1.25rem 1rem 1.5rem 1rem; /* A7 - 4-value shorthand: T R B L */
+    color: white;
+    background: var(--brand);
+    text-align: center;
+}
+
+/* A3 - semi-transparent rgb() overlay on the banner */
+.site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--overlay);
+    pointer-events: none;
+}
+
+.brand {
+    position: relative;
+    display: flex; /* A9 - display used deliberately for a row of items */
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+}
+
+.site-header h1 {
+    margin: 0;
+    font-size: var(--fs-h1); /* A4/A5 - fluid clamp() heading */
+    font-weight: bold;
+    letter-spacing: 0.0625rem;
+}
+
+.brand img {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover; /* A9 - uniform crop regardless of source size */
+    border-radius: 50%;
+}
+
+.site-header p {
+    position: relative;
+    margin: 0.75rem 0 0;
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVE NAV + HAMBURGER  (A9/B5/B6)
+   ------------------------------------------------------------ */
+.site-nav {
+    display: flex; /* A9 - a row of nav items */
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--brand);
+}
+
+.nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid rgb(255 255 255 / 60%);
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 1.25rem;
+    line-height: 1;
+    padding: 0.4rem 0.6rem;
+}
+
+/* A9 - display:none on an element revealed later (here: by the
+   hamburger's click handler on phones, and by the breakpoint below
+   on wider screens) */
+.nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.nav-links.open {
+    display: flex;
+}
+
+/* A2 - descendant selector */
+.nav-links a {
+    margin: 0 0.5rem;
+    color: white;
+    text-decoration: none;
+}
+
+/* A2 - child combinator */
+.nav-links > a {
+    font-weight: bold;
+}
+
+@media (min-width: 40rem) {
+    /* B5/B6 - first mobile-first breakpoint: reveal the full nav row,
+       hide the hamburger, no JS needed any more */
+    .nav-toggle {
+        display: none;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+h1,
+h2,
+h3 {
+    font-family: Arial, "Segoe UI", sans-serif;
+}
+
+h2 {
+    margin: 1.5rem 0 1rem;
+    color: var(--brand);
+    font-size: var(--fs-h2); /* A5 - type scale */
+    font-weight: bold;
+}
+
+/* A3 - adjacent sibling selector */
+h2 + p {
+    font-style: italic;
+}
+
+/* A3 - general sibling selector */
+h2 ~ p {
+    line-height: 1.6;
+}
+
+h3 {
+    margin-top: 0;
+    color: var(--accent);
+    font-size: var(--fs-h3); /* A5 - type scale */
+    font-weight: bold;
+    letter-spacing: 0.03125rem;
+}
+
+/* A5 - cap reading width on body copy */
+p {
+    max-width: 65ch;
+}
+
+/* ------------------------------------------------------------
+   CARD COMPONENT  (A7/A8)
+   ------------------------------------------------------------ */
+.event-card,
+aside,
+details {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--card);
+    border: 1px solid var(--border); /* hairline border - kept in px */
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 8%); /* A8 - soft shadow */
+}
+
+.event-card h3,
+aside h2 {
+    margin-top: 0;
+}
+
+/* A4 - selects external HTTPS links */
+a[href^="https"]::after {
+    content: " ↗";
+    font-size: 0.8em;
+}
+
+/* A4 - selects email input */
+input[type="email"] {
+    border: 2px solid var(--accent);
+    padding: 0.5rem;
+}
+
+/* A4 - selects date input */
+input[type="date"] {
+    border: 2px solid var(--accent);
+    padding: 0.5rem;
+}
+
+/* A5 - hover state */
+a:hover {
+    text-decoration: underline;
+}
+
+/* A5 - focus state for links */
+a:focus {
+    outline: 0.1875rem solid orange;
+    outline-offset: 0.125rem;
+}
+
+/* A5 - focus state for form inputs */
+input:focus {
+    outline: 0.1875rem solid orange;
+    outline-offset: 0.125rem;
+}
+
+/* A6 - stripes alternate table rows */
+.schedule tr:nth-child(even) {
+    background: rgba(40, 120, 167, 0.12);
+}
+
+/* A6 - selects the first navigation link */
+.nav-links a:first-child {
+    font-weight: bold;
+}
+
+/* A6 - selects the last navigation link */
+.nav-links a:last-child {
+    text-decoration: underline;
+}
+
+/* A6 - selects links that are not active */
+.nav-links a:not(.active) {
+    opacity: 0.9;
+}
+
+.schedule table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+}
+
+.schedule th,
+.schedule td {
+    padding: 0.625rem;
+    border: 1px solid var(--border);
+    text-align: left;
+}
+
+.schedule th {
+    background: var(--brand);
+    color: white;
+}
+
+/* A7 - generated content before figure */
+figure::before {
+    content: "";
+    display: block;
+    margin-bottom: 0.625rem;
+    border-top: 3px solid var(--accent);
+}
+
+figure {
+    margin: 0.625rem 0;
+    padding: 1.5rem;
+    background: rgba(40, 120, 167, 0.12);
+    border-radius: 0.5rem;
+}
+
+.event-card figure img {
+    object-fit: cover; /* A9 - uniform thumbnail crop */
+}
+
+figcaption {
+    font-style: italic;
+    letter-spacing: 0.3px;
+}
+
+/* A7 - placeholder styling */
+input::placeholder {
+    color: #666;
+    font-style: italic;
+}
+
+button {
+    padding: 0.625rem 1.125rem;
+    border: 0;
+    border-radius: 0.3125rem;
+    background: var(--accent);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--accent-hover); /* A3 - hsl() hover colour */
+}
+
+details {
+    margin-bottom: 0.625rem;
+}
+
+summary {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+dialog {
+    width: min(90%, 21.875rem);
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 0.625rem;
+    box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
+}
+
+dialog::backdrop {
+    background: rgb(0 0 0 / 50%);
+}
+
+.site-footer {
+    padding: 1.25rem;
+    background: var(--brand);
+    color: white;
+    text-align: center;
+}
+
+/* B4 - unset removes the custom margin */
+.site-footer p {
+    margin: unset;
+    font-size: var(--fs-small); /* A5 - type scale */
+}
+
+.site-footer nav a {
+    color: white;
+    margin: 0 0.5rem;
+}
+
+/* A8 - LVHA order */
+a:link {
+    color: var(--accent);
+}
+
+a:visited {
+    color: #666;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    color: orange;
+}
+
+/* B4 - border does not inherit by default */
+.registration input {
+    border: initial;
+}
+
+/* B2 - conflicting rules for cascade demonstration */
+.events p {
+    color: green;
+}
+
+.events article p {
+    color: var(--ink);
+}
+
+/* A9 - low-specificity class selector */
+.events {
+    font-family: Arial, "Segoe UI", sans-serif;
+}
+
+@media (max-width: 37.5em) {
+    /* legacy narrow-phone tweak, kept from Lab 4 */
+    .site-header {
+        padding: 0.9375rem;
+    }
+
+    .site-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .brand img {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .event-card {
+        padding: 0.75rem;
+    }
+}

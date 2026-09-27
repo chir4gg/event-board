@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - IIIT Event Board</title>
+<link rel="icon" href="fevicon.jpg" type="image/jpeg">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="theme-dark.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img src="fevicon.jpg" alt="IIIT Event Board logo">
+        <h1>IIIT Event Board</h1>
+    </div>
+    <p>Contact us for event-related information.</p>
+</header>
+
+<nav class="site-nav" aria-label="Main navigation">
+    <button type="button"
+        class="nav-toggle"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        onclick="document.getElementById('primary-nav').classList.toggle('open');
+                 this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');">
+        <span aria-hidden="true">&#9776;</span>
+        <span class="sr-only">Toggle menu</span>
+    </button>
+    <div class="nav-links" id="primary-nav">
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</nav>
+
+<main id="main-content" class="main-content">
+    <section class="contact-info">
+        <h2>Contact Us</h2>
+        <p>Email: <a href="mailto:events@iiit.ac.in">events@iiit.ac.in</a></p>
+        <p>Number: <a href="tel:9154697948">9154697948</a></p>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; 2026 IIIT Event Board</p>
+</footer>
+
+</body>
+</html>

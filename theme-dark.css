@@ -1,0 +1,48 @@
+body.dark-theme {
+    --brand: #0f172a;
+    --accent: #1d58a1;
+    --paper: #111827;
+    --ink: #eee;
+    --card: rgba(31, 41, 55, 0.94);
+    --border: #4b5563;
+    --overlay: rgb(15 23 42 / 55%);
+    --accent-hover: hsl(212, 65%, 45%);
+
+    color: var(--ink);
+    background-color: var(--paper);
+}
+
+body.dark-theme .site-header,
+body.dark-theme .site-nav,
+body.dark-theme .site-footer {
+    background: var(--brand);
+}
+
+body.dark-theme .events article,
+body.dark-theme aside,
+body.dark-theme details {
+    background: var(--card);
+    color: #eee;
+    border-color: var(--border);
+}
+
+body.dark-theme h2 {
+    color: #93c5fd;
+}
+
+body.dark-theme h3 {
+    color: #60a5fa;
+}
+
+body.dark-theme figure {
+    background: rgba(96, 165, 250, 0.12);
+}
+
+body.dark-theme address {
+    color: #eee;
+}
+
+body.dark-theme .nav-links a,
+body.dark-theme .site-footer nav a {
+    color: white;
+}
